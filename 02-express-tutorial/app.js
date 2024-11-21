@@ -49,9 +49,10 @@ app.get('/api/v1/products/:productId', (request, response) => {
 
 // Search product query
 app.get('/api/v1/query', (request, response) => {
+    const defaultLimit = 5;
 
     const search = request.query.search.toLocaleLowerCase()
-    const limit = parseInt(request.query.limit) || 5
+    const limit = parseInt(request.query.limit) || defaultLimit
     
     const resultProducts = products.filter(
         (p) => {
