@@ -47,6 +47,12 @@ app.get('/api/v1/products/:productId', (request, response) => {
     response.json(product)
 })
 
+// Search product query
+app.get('/api/v1/query', (request, response) => {
+    const { search, limit } = request.query
+    response.json(request.query)
+})
+
 // Not found for all other paths
 app.all( '*', (request, response) => {
     response.status(404).json({
