@@ -7,5 +7,30 @@
 </head>
 <body>
     Hello World!
+    <button id="myButton">Show Products</button>
+    <div id="myBlock"></div>
 </body>
 </html>
+<script>
+document.getElementById('myButton').addEventListener('click', async e => {
+    await fetch('http://localhost:3000/api/v1/products')
+        .then(response => {
+            if( response.ok ) {
+                console.log('test')
+                return response.json();
+            }
+        })
+        .then(data => {
+            const myBlock = document.getElementById('myBlock')
+            console.log('test', data)
+            data.forEach(p => {
+                const newBlock = document.createElement('div')
+                newBlock.innerText = p.name
+                myBlock.appendChild(newBlock)
+            })
+        })
+        .catch(error => {
+            console.log("Error!", error)
+        })
+})
+</script>
