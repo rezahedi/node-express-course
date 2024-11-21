@@ -20,16 +20,19 @@ app.listen(port, () => {
 
 app.use(express.static("./public"))
 
+// First test endpoint
 app.get('/api/v1/test', (request, response) => {
     response.json({
         message: 'My test API endpoint!'
     })
 })
 
+// Get all products
 app.get('/api/v1/products', (request, response) => {
     response.json(products)
 })
 
+// Get product by Id
 app.get('/api/v1/products/:productId', (request, response) => {
     
     const productId = parseInt(request.params.productId)
@@ -44,6 +47,7 @@ app.get('/api/v1/products/:productId', (request, response) => {
     response.json(product)
 })
 
+// Not found for all other paths
 app.all( '*', (request, response) => {
     response.status(404).json({
         message: 'Path not found!'
