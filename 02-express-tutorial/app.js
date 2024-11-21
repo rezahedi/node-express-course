@@ -19,8 +19,8 @@ app.listen(port, () => {
 
 app.use(express.static("./public"))
 
-app.get('/api/xendpoint', (request, response) => {
+app.get('/api/v1/test', (request, response) => {
     return response.json({
-        message: 'My First API Endpoint!'
+        message: 'My test API endpoint!'
     })
 })
