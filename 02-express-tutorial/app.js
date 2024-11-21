@@ -53,11 +53,15 @@ app.get('/api/v1/query', (request, response) => {
 
     const search = request.query.search.toLocaleLowerCase()
     const limit = parseInt(request.query.limit) || defaultLimit
+    const minPrice = parseInt(request.query.minPrice) || -1
+    const maxPrice = parseInt(request.query.maxPrice) || -1
     
     const resultProducts = products.filter(
         (p) => {
             if( search )
                 return p.name.toLowerCase().indexOf(search) >= 0
+                    && ( minPrice===-1 || p.price >= minPrice )
+                    && ( maxPrice===-1 || p.price <= maxPrice )
             else
                 return false;
         }
@@ -66,6 +70,8 @@ app.get('/api/v1/query', (request, response) => {
     response.json({
         term: search,
         limit,
+        minPrice,
+        maxPrice,
         result: resultProducts.slice( 0, limit ),
     })
 })
