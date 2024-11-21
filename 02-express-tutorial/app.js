@@ -20,13 +20,13 @@ app.listen(port, () => {
 app.use(express.static("./public"))
 
 app.get('/api/v1/test', (request, response) => {
-    return response.json({
+    response.json({
         message: 'My test API endpoint!'
     })
 })
 
 app.all( '*', (request, response) => {
-    return response.status(404).json({
+    response.status(404).json({
         message: 'Path not found!'
     })
 })
