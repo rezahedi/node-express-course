@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const { products } = require("./data")
 
 
 /**
@@ -23,6 +24,10 @@ app.get('/api/v1/test', (request, response) => {
     response.json({
         message: 'My test API endpoint!'
     })
+})
+
+app.get('/api/v1/products', (request, response) => {
+    response.json(products)
 })
 
 app.all( '*', (request, response) => {
