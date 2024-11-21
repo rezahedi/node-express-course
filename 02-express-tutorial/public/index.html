@@ -8,21 +8,23 @@
 <body>
     Hello World!
     <button id="myButton">Show Products</button>
-    <div id="myBlock"></div>
+    <div id="myBlock">No products!</div>
 </body>
 </html>
 <script>
 document.getElementById('myButton').addEventListener('click', async e => {
+    const myBlock = document.getElementById('myBlock')
+    myBlock.innerText = "Loading ..."
+
     await fetch('http://localhost:3000/api/v1/products')
         .then(response => {
             if( response.ok ) {
-                console.log('test')
                 return response.json();
             }
         })
         .then(data => {
-            const myBlock = document.getElementById('myBlock')
-            console.log('test', data)
+            myBlock.innerText = "";
+
             data.forEach(p => {
                 const newBlock = document.createElement('div')
                 newBlock.innerText = p.name
@@ -30,7 +32,8 @@ document.getElementById('myButton').addEventListener('click', async e => {
             })
         })
         .catch(error => {
-            console.log("Error!", error)
+            myBlock.innerText = "Something crashed! Check logs."
+            console.error(error)
         })
 })
 </script>
