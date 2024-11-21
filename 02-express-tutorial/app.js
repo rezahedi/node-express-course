@@ -49,8 +49,14 @@ app.get('/api/v1/products/:productId', (request, response) => {
 
 // Search product query
 app.get('/api/v1/query', (request, response) => {
-    const { search, limit } = request.query
-    response.json(request.query)
+
+    const search = request.query.search.toLocaleLowerCase()
+    const limit = parseInt(request.query.limit) || 5
+    
+    const resultProducts = products.filter( p => p.name.toLowerCase().indexOf(search) >= 0 )
+        
+
+    response.json( resultProducts.slice( 0, limit ) )
 })
 
 // Not found for all other paths
