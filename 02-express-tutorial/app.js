@@ -24,3 +24,9 @@ app.get('/api/v1/test', (request, response) => {
         message: 'My test API endpoint!'
     })
 })
+
+app.all( '*', (request, response) => {
+    return response.status(404).json({
+        message: 'Path not found!'
+    })
+})
