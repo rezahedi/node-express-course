@@ -48,7 +48,7 @@ app.get('/api/v1/query', (request, response) => {
     const defaultLimit = 5;
 
     const search = request.query.search && request.query.search.toLocaleLowerCase() || ""
-    const limit = parseInt(request.query.limit) || defaultLimit
+    const limit = Math.abs( parseInt(request.query.limit) ) || defaultLimit
     const minPrice = parseFloat(request.query.minPrice) || -1
     const maxPrice = parseFloat(request.query.maxPrice) || -1
 
