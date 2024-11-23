@@ -51,6 +51,13 @@ app.get('/api/v1/query', (request, response) => {
     const limit = parseInt(request.query.limit) || defaultLimit
     const minPrice = parseFloat(request.query.minPrice) || -1
     const maxPrice = parseFloat(request.query.maxPrice) || -1
+
+    // Handle error: Always minPrice < maxPrice
+    if( minPrice!==-1 && maxPrice!==-1 && minPrice>maxPrice ) {
+        response.status(400).json({
+            message: "Minimum and maximum price conflict!"
+        })
+    }
     
     const resultProducts = products.filter(
         (p) => {
