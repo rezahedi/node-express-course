@@ -75,10 +75,10 @@ app.get('/api/v1/query', (request, response) => {
     }
 
     response.json({
-        term: search,
+        ...(search!=="" && {term: search} ),
         limit,
-        minPrice,
-        maxPrice,
+        ...(minPrice !== -1 && { minPrice }),
+        ...(maxPrice !== -1 && { maxPrice }),
         result: resultProducts.slice( 0, limit ),
     })
 })
