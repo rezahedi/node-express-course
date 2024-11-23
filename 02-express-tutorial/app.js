@@ -49,8 +49,8 @@ app.get('/api/v1/query', (request, response) => {
 
     const search = request.query.search.toLocaleLowerCase()
     const limit = parseInt(request.query.limit) || defaultLimit
-    const minPrice = parseInt(request.query.minPrice) || -1
-    const maxPrice = parseInt(request.query.maxPrice) || -1
+    const minPrice = parseFloat(request.query.minPrice) || -1
+    const maxPrice = parseFloat(request.query.maxPrice) || -1
     
     const resultProducts = products.filter(
         (p) => {
