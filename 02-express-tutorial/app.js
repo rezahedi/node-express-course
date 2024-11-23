@@ -59,31 +59,20 @@ app.get('/api/v1/query', (request, response) => {
         })
     }
     
-    const resultProducts = products.filter(
-        (p) => {
-            let result = false;
+    let resultProducts = []
+    // Check if at least one query param provided to filter the result
+    if( search !== "" || minPrice !== -1 || maxPrice !== -1 ) {
 
-            if( search !== "" )
-                result = (p.name.toLowerCase().indexOf(search) >= 0)
-            if( minPrice !== -1 ) {
-                // TODO: if search term available, consider the result of the prev if statement
-                if(search) {
-                    result = result && (p.price >= minPrice)
-                } else {
-                    result = (p.price >= minPrice)
-                }
+        resultProducts = products.filter(
+            (p) => {
+                const searchResult = search !== "" ? (p.name.toLowerCase().indexOf(search) >= 0) : true
+                const minPriceResult = minPrice !== -1 ? (p.price >= minPrice) : true
+                const maxPriceResult = maxPrice !== -1 ? (p.price <= maxPrice) : true
+
+                return searchResult && minPriceResult && maxPriceResult
             }
-            if( maxPrice !== -1 ) {
-                // TODO: if search or minPrice available, consider the result of prev if statements
-                if(search || minPrice !== -1 ) {
-                    result = result && (p.price <= maxPrice)
-                } else {
-                    result = (p.price <= maxPrice)
-                }
-            }
-            return result;
-        }
-    )
+        )
+    }
 
     response.json({
         term: search,
