@@ -14,10 +14,6 @@ const port = 3000;
 //     console.log(`app listening at http://localhost:${port}`)
 // })
 
-app.listen(port, () => {
-    console.log(`Local sercer is listening on port ${port}`)
-})
-
 app.use(express.static("./public"))
 
 // First test endpoint
@@ -81,4 +77,10 @@ app.all( '*', (request, response) => {
     response.status(404).json({
         message: 'Path not found!'
     })
+})
+
+
+
+app.listen(port, () => {
+    console.log(`Local sercer is listening on port ${port}`)
 })
