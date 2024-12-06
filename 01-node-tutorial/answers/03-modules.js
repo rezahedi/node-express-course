@@ -1,4 +1,5 @@
 const names = require('./04-names.js')
-console.log(names.firstPerson)
-console.log(names.secondPerson)
-console.log(names.thirdPerson)
+const greeting = require('./05-utils.js')
+greeting(names.firstPerson)
+greeting(names.secondPerson)
+greeting(names.thirdPerson)
