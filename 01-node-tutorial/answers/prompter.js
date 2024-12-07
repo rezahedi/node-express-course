@@ -25,13 +25,14 @@ let item = "Enter something below.";
 const RANDOM_NUMBER = Math.floor(Math.random() * 100);
 const GUESS_LIMIT = 10;
 let guesses = 0;
+let result = "";
 
 const guessChecker = (guessedNumber) => {
   console.log("guesschecker run")
   guesses++;
 
   if (guessedNumber === RANDOM_NUMBER) {
-    return `You found it with ${guesses} guesses!`;
+    return `You found it with ${guesses} guesses! 🎉🎉🎉`;
   } else if (guessedNumber < RANDOM_NUMBER) {
     return `You are too low. Guess again!`;
   } else {
@@ -42,12 +43,11 @@ const guessChecker = (guessedNumber) => {
 // here, you can change the form below to modify the input fields and what is displayed.
 // This is just ordinary html with string interpolation.
 const form = () => {
-  const result = parseInt(item) ? guessChecker( parseInt(item) ) : "";
   return `
   <body>
   <form method="POST">
-  <h2>Number Guessing Game: ${guesses}/${GUESS_LIMIT}</h2>
-  ${RANDOM_NUMBER} - ${item}
+  <h2>Number Guessing Game</h2>
+  <h4>${guesses}/${GUESS_LIMIT} guesses</h4>
   <p>You have ten guesses to find the number I'm thinking of.</p>
   <p>By entering a number between 1 and 100, you can guess what number I'm thinking of.</p>
   <p>I'm giving you clue by telling you if you're is lower or higher than mine.</p>
@@ -68,6 +68,7 @@ const server = http.createServer((req, res) => {
       // here, you can add your own logic
       if (body["guessed_number"]) {
         item = body["guessed_number"];
+        result = guessChecker( parseInt(item) )
       } else {
         item = "Nothing was entered.";
       }
