@@ -21,7 +21,7 @@ const getBody = (req, callback) => {
 };
 
 // here, you could declare one or more variables to store what comes back from the form.
-let item = "Enter something below.";
+let guessed_number = "Enter something below.";
 const RANDOM_NUMBER = Math.floor(Math.random() * 100);
 const GUESS_LIMIT = 10;
 let guesses = 0;
@@ -67,10 +67,10 @@ const server = http.createServer((req, res) => {
       console.log("The body of the post is ", body);
       // here, you can add your own logic
       if (body["guessed_number"]) {
-        item = body["guessed_number"];
-        result = guessChecker( parseInt(item) )
+        guessed_number = body["guessed_number"];
+        result = guessChecker( parseInt(guessed_number) )
       } else {
-        item = "Nothing was entered.";
+        guessed_number = "Nothing was entered.";
       }
       // Your code changes would end here
       res.writeHead(303, {
