@@ -1,4 +1,4 @@
-const { writeFile, readFile } = require('fs').promises;
+const { writeFile } = require('fs').promises;
 const FILE_NAME = './temporary/output.txt';
 
 writeFile(FILE_NAME, "01 First line.\n")
