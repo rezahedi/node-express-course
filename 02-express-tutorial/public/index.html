@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<style>
+body{
+    margin:1rem auto;
+    max-width:600px;
+}
+div{
+    padding: .5rem;
+    margin: .5rem;
+    border: 1px solid gray;
+}
+</style>
+</head>
+<body>
+    <button id="myButton">Show Products</button>
+    <div id="myBlock">No products!</div>
+</body>
+</html>
+<script>
+document.getElementById('myButton').addEventListener('click', async e => {
+    const myBlock = document.getElementById('myBlock')
+    myBlock.innerText = "Loading ..."
+
+    await fetch('http://localhost:3000/api/v1/products')
+        .then(response => {
+            if( response.ok ) {
+                return response.json();
+            }
+        })
+        .then(data => {
+            myBlock.innerText = "";
+
+            data.forEach(p => {
+                const newBlock = document.createElement('div')
+                newBlock.innerText = p.name
+                myBlock.appendChild(newBlock)
+            })
+        })
+        .catch(error => {
+            myBlock.innerText = "Something crashed! Check logs."
+            console.error(error)
+        })
+})
+</script>
