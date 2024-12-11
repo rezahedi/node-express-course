@@ -60,15 +60,30 @@ app.get('/api/v1/query', (request, response) => {
     }
     
     let resultProducts = []
-    // Check if at least one query param provided to filter the result
-    if( search !== "" || minPrice !== -1 || maxPrice !== -1 ) {
 
-        resultProducts = products.filter(
-            (p) => {
-                return (search === "" || p.name.toLowerCase().includes(search.toLowerCase())) &&
-                (minPrice === -1 || p.price >= minPrice) &&
-                (maxPrice === -1 || p.price <= maxPrice);
-            }
+    // If there is any filters set resultProducts with all products
+    if( search !== "" || minPrice !== -1 || maxPrice !== -1 ) {
+        resultProducts = [...products]
+    }
+
+    // Filter by search term
+    if( search !== "" ) {
+        resultProducts = resultProducts.filter(
+            (p) => p.name.toLowerCase().includes(search.toLowerCase())
+        )
+    }
+
+    // Filter by minPrice
+    if( minPrice !== -1 ) {
+        resultProducts = resultProducts.filter(
+            (p) => p.price >= minPrice
+        )
+    }
+
+    // Filter by maxPrice
+    if( maxPrice !== -1 ) {
+        resultProducts = resultProducts.filter(
+            (p) => p.price <= maxPrice
         )
     }
 
