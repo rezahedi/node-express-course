@@ -113,5 +113,5 @@ app.all( '*', (request, response) => {
 
 
 app.listen(port, () => {
-    console.log(`Local sercer is listening on port ${port}`)
+    console.log(`Local server is listening on port ${port}`)
 })
