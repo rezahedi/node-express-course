@@ -21,7 +21,7 @@ const logger = (request, response, next) => {
     next()
 }
 
-app.use('/', logger)
+app.use(logger)
 
 // First test endpoint
 app.get('/api/v1/test', (request, response) => {
