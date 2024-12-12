@@ -16,6 +16,13 @@ const port = 3000;
 
 app.use(express.static("./public"))
 
+const logger = (request, response, next) => {
+    console.log(new Date().toTimeString(), request.method, request.url)
+    next()
+}
+
+app.use('/', logger)
+
 // First test endpoint
 app.get('/api/v1/test', (request, response) => {
     response.json({
