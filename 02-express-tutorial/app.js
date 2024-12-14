@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
-const { products, people } = require("./data")
-
+const { products } = require("./data")
+const peopleRouter = require("./routes/people")
 
 /**
  * Create HTTP server
@@ -106,31 +106,7 @@ app.get('/api/v1/query', (request, response) => {
     })
 })
 
-app.get('/api/v1/people', (request, response) => {
-    response.json(people)
-})
-
-app.post('/api/v1/people', (request, response) => {
-    const name = request.body.name
-    
-    // Handle error: Name is required
-    if( !name ) {
-        response.status(400).json({
-            message: 'Please provide a name'
-        })
-    }
-
-    // Add new person
-    people.push({
-        id: people.length + 1,
-        name
-    })
-
-    response.status(201).json({
-        success: true,
-        name
-    })
-})
+app.use("/api/v1/people", peopleRouter)
 
 // Not found for all other paths
 app.all( '*', (request, response) => {
