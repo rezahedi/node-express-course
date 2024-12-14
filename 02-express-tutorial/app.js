@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const { products } = require("./data")
+const { products, people } = require("./data")
 
 
 /**
@@ -22,6 +22,9 @@ const logger = (request, response, next) => {
 }
 
 app.use(logger)
+
+app.use( express.urlencoded({ extended: true }) )
+app.use( express.json() )
 
 // First test endpoint
 app.get('/api/v1/test', (request, response) => {
@@ -100,6 +103,32 @@ app.get('/api/v1/query', (request, response) => {
         ...(minPrice !== -1 && { minPrice }),
         ...(maxPrice !== -1 && { maxPrice }),
         result: resultProducts.slice( 0, limit ),
+    })
+})
+
+app.get('/api/v1/people', (request, response) => {
+    response.json(people)
+})
+
+app.post('/api/v1/people', (request, response) => {
+    const name = request.body.name
+    
+    // Handle error: Name is required
+    if( !name ) {
+        response.status(400).json({
+            message: 'Please provide a name'
+        })
+    }
+
+    // Add new person
+    people.push({
+        id: people.length + 1,
+        name
+    })
+
+    response.status(201).json({
+        success: true,
+        name
     })
 })
 
