@@ -1,6 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const { addPerson, getPeople, getPerson, updatePerson, removePerson } = require("../controllers/people");
+const {
+  addPerson,
+  getPeople,
+  getPerson,
+  updatePerson,
+  removePerson
+} = require("../controllers/people");
 
 router.get("/", (request, response) => {
   const people = getPeople()
@@ -57,7 +63,7 @@ router.put("/", (request, response) => {
   // Handle error: Person not found
   const person = updatePerson(id, name)
   if( !person ) {
-    response.status(400).json({
+    response.status(404).json({
       message: 'Person not found!'
     })
   }
