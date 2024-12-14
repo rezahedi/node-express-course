@@ -14,7 +14,7 @@ const port = 3000;
 //     console.log(`app listening at http://localhost:${port}`)
 // })
 
-app.use(express.static("./public"))
+app.use(express.static("./methods-public"))
 
 const logger = (request, response, next) => {
     console.log(new Date().toTimeString(), request.method, request.url)
