@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { addPerson, getPeople } = require("../controllers/people");
+const { addPerson, getPeople, getPerson } = require("../controllers/people");
 
 router.get("/", (request, response) => {
   const people = getPeople()
@@ -24,6 +24,23 @@ router.post("/", (request, response) => {
     success: true,
     person
   })
+})
+
+// Get person by id
+router.get("/:id", (request, response) => {
+  const id = parseInt(request.params.id)
+
+  const person = getPerson(id)
+
+  // Handle error: Person not found
+  if( !person ) {
+    response.status(404).json({
+      success: false,
+      message: 'Person not found!'
+    })
+  }
+
+  response.json(person)
 })
 
 module.exports = router;

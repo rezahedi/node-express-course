@@ -15,7 +15,12 @@ const getPeople = () => {
   return people
 }
 
+const getPerson = (id) => {
+  return people.find( p => p.id === id )
+}
+
 module.exports = {
   addPerson,
-  getPeople
+  getPeople,
+  getPerson
 }
