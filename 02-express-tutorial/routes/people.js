@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { addPerson, getPeople, getPerson, updatePerson } = require("../controllers/people");
+const { addPerson, getPeople, getPerson, updatePerson, removePerson } = require("../controllers/people");
 
 router.get("/", (request, response) => {
   const people = getPeople()
@@ -66,6 +66,24 @@ router.put("/", (request, response) => {
     success: true,
     message: 'Person updated!',
     person
+  })
+})
+
+router.delete("/:id", (request, response) => {
+  const id = parseInt(request.params.id)
+
+  const result = removePerson(id)
+
+  // Handle error: Person not found
+  if( !result ) {
+    response.status(404).json({
+      message: 'Person not found!'
+    })
+  }
+
+  response.json({
+    success: true,
+    message: 'Person removed!'
   })
 })
 
