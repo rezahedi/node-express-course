@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { addPerson, getPeople, getPerson } = require("../controllers/people");
+const { addPerson, getPeople, getPerson, updatePerson } = require("../controllers/people");
 
 router.get("/", (request, response) => {
   const people = getPeople()
@@ -41,6 +41,32 @@ router.get("/:id", (request, response) => {
   }
 
   response.json(person)
+})
+
+router.put("/", (request, response) => {
+  const id = parseInt( request.body.id )
+  const name = request.body.name
+
+  // Handle error: Name and id are required
+  if( !name || !id ) {
+    response.status(404).json({
+      message: 'Please provide an id and name'
+    })
+  }
+
+  // Handle error: Person not found
+  const person = updatePerson(id, name)
+  if( !person ) {
+    response.status(400).json({
+      message: 'Person not found!'
+    })
+  }
+
+  response.json({
+    success: true,
+    message: 'Person updated!',
+    person
+  })
 })
 
 module.exports = router;
