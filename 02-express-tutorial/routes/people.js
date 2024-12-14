@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const { people } = require("../data");
+const { addPerson, getPeople } = require("../controllers/people");
 
 router.get("/", (request, response) => {
+  const people = getPeople()
   response.json(people)
 })
 
@@ -17,14 +18,11 @@ router.post("/", (request, response) => {
   }
 
   // Add new person
-  people.push({
-    id: people.length + 1,
-    name
-  })
+  const person = addPerson(name)
 
   response.status(201).json({
     success: true,
-    name
+    person
   })
 })
 
