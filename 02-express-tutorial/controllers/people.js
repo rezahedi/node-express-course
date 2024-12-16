@@ -1,4 +1,4 @@
-const db = require("./services");
+const db = require("../services/db");
 
 const addPerson = (request, response) => {
   const name = request.body.name
