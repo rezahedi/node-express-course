@@ -1,7 +1,7 @@
-require('./db/connect')
 const express = require('express');
 const app = express();
 const tasksRouter = require('./routes/tasks')
+const connectDB = require('./db/connect')
 
 /* Middlewares */
 const logger = (request, response, next) => {
@@ -18,4 +18,14 @@ app.use("/api/v1/tasks", tasksRouter)
 
 /* Listener */
 const port = 3000;
-app.listen(port, console.log(`Local server is listening on port ${port}`))
+
+const start = async () => {
+  try {
+    await connectDB()
+    app.listen(port, console.log(`Local server is listening on port ${port}`))
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+start()
