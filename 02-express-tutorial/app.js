@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const { products } = require("./data")
-
+const peopleRouter = require("./routes/people")
 
 /**
  * Create HTTP server
@@ -14,7 +14,17 @@ const port = 3000;
 //     console.log(`app listening at http://localhost:${port}`)
 // })
 
-app.use(express.static("./public"))
+app.use(express.static("./methods-public"))
+
+const logger = (request, response, next) => {
+    console.log(new Date().toTimeString(), request.method, request.url)
+    next()
+}
+
+app.use(logger)
+
+app.use( express.urlencoded({ extended: true }) )
+app.use( express.json() )
 
 // First test endpoint
 app.get('/api/v1/test', (request, response) => {
@@ -96,6 +106,8 @@ app.get('/api/v1/query', (request, response) => {
     })
 })
 
+app.use("/api/v1/people", peopleRouter)
+
 // Not found for all other paths
 app.all( '*', (request, response) => {
     response.status(404).json({
@@ -106,5 +118,5 @@ app.all( '*', (request, response) => {
 
 
 app.listen(port, () => {
-    console.log(`Local sercer is listening on port ${port}`)
+    console.log(`Local server is listening on port ${port}`)
 })
