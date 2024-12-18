@@ -10,6 +10,8 @@ const logger = (request, response, next) => {
 }
 app.use(logger)
 
+app.use(express.static('./public'))
+
 app.use( express.urlencoded({ extended: true }) )
 app.use( express.json() )
 
