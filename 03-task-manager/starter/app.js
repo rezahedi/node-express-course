@@ -3,6 +3,7 @@ const app = express();
 const tasksRouter = require('./routes/tasks')
 const connectDB = require('./db/connect')
 const notFound = require('./middlewares/not-found');
+const errorHandler = require('./middlewares/errorHandler');
 
 /* Middlewares */
 const logger = (request, response, next) => {
@@ -19,6 +20,7 @@ app.use( express.json() )
 /* Routes - below this line */
 app.use("/api/v1/tasks", tasksRouter)
 app.use("*", notFound)
+app.use(errorHandler)
 
 /* Listener */
 const port = 3000;
