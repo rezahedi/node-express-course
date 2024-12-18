@@ -4,6 +4,9 @@ const tasksRouter = require('./routes/tasks')
 const connectDB = require('./db/connect')
 const notFound = require('./middlewares/not-found');
 const errorHandler = require('./middlewares/errorHandler');
+require('dotenv').config()
+
+const LOCAL_PORT = 3000
 
 /* Middlewares */
 const logger = (request, response, next) => {
@@ -23,7 +26,7 @@ app.use("*", notFound)
 app.use(errorHandler)
 
 /* Listener */
-const port = 3000;
+const port = process.env.PORT || LOCAL_PORT;
 
 const start = async () => {
   try {
