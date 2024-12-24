@@ -2,6 +2,7 @@ const connectDB = require('./db/connect')
 const notFoundHandler = require('./middleware/notFoundHandler')
 const errorHandler = require('./middleware/errorHandler')
 require('dotenv').config();
+const productsRouter = require('./routes/products')
 
 const LOCAL_PORT = 3000
 
@@ -25,6 +26,8 @@ app.use( express.json() )
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
+
+app.use('/api/v1/products', productsRouter)
 
 app.use(notFoundHandler);
 app.use(errorHandler);
