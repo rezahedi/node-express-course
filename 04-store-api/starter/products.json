@@ -1,131 +1,130 @@
 [
   {
-    "name": "accent chair",
-    "price": 25,
-    "company": "marcos",
+    "name": "velvet lounge chair",
+    "price": 45,
+    "company": "zenith",
     "rating": 4
   },
   {
-    "name": "albany sectional",
-    "price": 109,
-    "company": "liddy",
+    "name": "grand corner sofa",
+    "price": 199,
+    "company": "nova",
     "rating": 5
   },
   {
-    "name": "albany table",
-    "price": 309,
-    "company": "liddy",
+    "name": "oak dining table",
+    "price": 359,
+    "company": "nova",
     "rating": 4.9
   },
   {
-    "name": "armchair",
-    "price": 125,
-    "company": "marcos",
+    "name": "recliner armchair",
+    "price": 175,
+    "company": "zenith",
     "rating": 4.8
   },
   {
-    "name": "bar stool",
-    "price": 40,
-    "company": "liddy",
+    "name": "steel bar stool",
+    "price": 55,
+    "company": "nova",
     "rating": 4.6
   },
   {
-    "name": "dining table",
-    "price": 42,
-    "company": "ikea",
+    "name": "classic round table",
+    "price": 68,
+    "company": "urbanwood",
     "rating": 4.55
   },
   {
-    "name": "emperor bed",
-    "price": 23,
-    "company": "ikea"
-  },
-  {
-    "name": "entertainment center",
-    "price": 59,
-    "featured": true,
-    "company": "caressa"
-  },
-  {
-    "name": "high-back bench",
-    "price": 39,
-    "featured": true,
-    "company": "ikea"
-  },
-
-  {
-    "name": "leather sofa",
-    "price": 99,
-    "company": "caressa"
-  },
-  {
-    "name": "modern bookshelf",
-    "price": 31,
-    "featured": true,
-    "company": "caressa"
-  },
-  {
-    "name": "modern poster",
-    "price": 30,
-    "company": "liddy"
-  },
-  {
-    "name": "shelf",
-    "price": 30,
-    "company": "ikea"
-  },
-  {
-    "name": "simple chair",
-    "price": 109,
-    "company": "liddy"
-  },
-  {
-    "name": "sofa set",
-    "price": 129,
-    "company": "marcos"
-  },
-  {
-    "name": "suede armchair",
-    "price": 15,
-    "company": "caressa"
-  },
-  {
-    "name": "utopia sofa",
-    "price": 79,
-    "featured": true,
-    "company": "liddy"
-  },
-  {
-    "name": "vase table",
+    "name": "king canopy bed",
     "price": 120,
+    "company": "urbanwood"
+  },
+  {
+    "name": "media console",
+    "price": 110,
     "featured": true,
-    "company": "marcos"
+    "company": "craftline"
   },
   {
-    "name": "wooden bed",
-    "price": 25,
-    "company": "ikea"
-  },
-  {
-    "name": "wooden desk",
-    "price": 15,
-    "company": "ikea"
-  },
-  {
-    "name": "wooden desk",
-    "price": 40,
-    "company": "ikea"
-  },
-  {
-    "name": "wooden table",
-    "price": 23,
+    "name": "rustic bench",
+    "price": 75,
     "featured": true,
-    "company": "caressa"
+    "company": "urbanwood"
   },
   {
-    "name": "a first wooden table",
-    "price": 23,
+    "name": "leather recliner",
+    "price": 185,
+    "company": "craftline"
+  },
+  {
+    "name": "industrial bookshelf",
+    "price": 55,
     "featured": true,
-    "company": "caressa"
+    "company": "craftline"
+  },
+  {
+    "name": "abstract wall art",
+    "price": 49,
+    "company": "nova"
+  },
+  {
+    "name": "floating shelf",
+    "price": 42,
+    "company": "urbanwood"
+  },
+  {
+    "name": "minimalist chair",
+    "price": 145,
+    "company": "nova"
+  },
+  {
+    "name": "luxury sofa set",
+    "price": 210,
+    "company": "zenith"
+  },
+  {
+    "name": "fabric armchair",
+    "price": 85,
+    "company": "craftline"
+  },
+  {
+    "name": "plush sectional",
+    "price": 165,
+    "featured": true,
+    "company": "nova"
+  },
+  {
+    "name": "marble top table",
+    "price": 240,
+    "featured": true,
+    "company": "zenith"
+  },
+  {
+    "name": "solid wood bed",
+    "price": 150,
+    "company": "urbanwood"
+  },
+  {
+    "name": "executive desk",
+    "price": 95,
+    "company": "urbanwood"
+  },
+  {
+    "name": "adjustable desk",
+    "price": 135,
+    "company": "urbanwood"
+  },
+  {
+    "name": "farmhouse table",
+    "price": 115,
+    "featured": true,
+    "company": "craftline"
+  },
+  {
+    "name": "classic end table",
+    "price": 95,
+    "featured": true,
+    "company": "craftline"
   }
 ]
