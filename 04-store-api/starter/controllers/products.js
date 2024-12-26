@@ -1,4 +1,5 @@
 const Product = require('../models/product')
+const DEFAULT_LIMIT = 10;
 
 const getAllProductsStatic = async (req, res) => {
   const products = await Product.find(req.query)
@@ -9,7 +10,7 @@ const getAllProductsStatic = async (req, res) => {
   })
 }
 const getAllProducts = async (req, res) => {
-  const { name, featured, company, sort, fields } = req.query
+  const { name, featured, company, sort, fields, limit = DEFAULT_LIMIT } = req.query
   const queryObject = {}
 
   if (name) {
@@ -37,6 +38,9 @@ const getAllProducts = async (req, res) => {
   if (fields) {
     result.select( fields.replace(',', ' ') )
   }
+
+  // Limit
+  result.limit( Math.abs( parseInt(limit) ) || DEFAULT_LIMIT )
   
   // Run created query
   const products = await result
@@ -46,6 +50,7 @@ const getAllProducts = async (req, res) => {
     ...queryObject,
     ...{ sort },
     ...{ fields },
+    ...{ limit: Math.abs( parseInt(limit) ) || DEFAULT_LIMIT },
     products
   })
 }
