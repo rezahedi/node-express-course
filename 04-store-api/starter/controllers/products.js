@@ -18,7 +18,8 @@ const getAllProducts = async (req, res) => {
     featured,
     company,
     sort,
-    fields
+    fields,
+    numericFilters,
   } = req.query
   let {
     limit = DEFAULT_LIMIT,
@@ -34,6 +35,28 @@ const getAllProducts = async (req, res) => {
   }
   if (company) {
     queryObject.company = company
+  }
+  if (numericFilters) {
+    const operatorsMap = {
+      '>': '$gt',
+      '<': '$lt',
+      '>=': '$gte',
+      '<=': '$lte',
+      '=': '$eq',
+    }
+    const searchOperator = /([<>=]+)/g
+    let filters = numericFilters.replace(searchOperator, match => `-${operatorsMap[match]}-`)
+    console.log(filters)
+    const options = ['price', 'rating']
+    filters = filters.split(',').forEach(item => {
+      const [field, operator, value] = item.split('-')
+      if (options.includes(field)) {
+        queryObject[field] = {
+          [operator]: Number(value)
+        }
+      }
+    })
+    
   }
 
   // Create base query
