@@ -10,7 +10,8 @@ const getAllProductsStatic = async (req, res) => {
   })
 }
 const getAllProducts = async (req, res) => {
-  const { name, featured, company, sort, fields, limit = DEFAULT_LIMIT } = req.query
+  const { name, featured, company, sort, fields } = req.query
+  let { limit = DEFAULT_LIMIT } = req.query
   const queryObject = {}
 
   if (name) {
@@ -40,7 +41,8 @@ const getAllProducts = async (req, res) => {
   }
 
   // Limit
-  result.limit( Math.abs( parseInt(limit) ) || DEFAULT_LIMIT )
+  limit = Math.abs( parseInt(limit) ) || DEFAULT_LIMIT
+  result.limit( limit )
   
   // Run created query
   const products = await result
@@ -50,7 +52,7 @@ const getAllProducts = async (req, res) => {
     ...queryObject,
     ...{ sort },
     ...{ fields },
-    ...{ limit: Math.abs( parseInt(limit) ) || DEFAULT_LIMIT },
+    ...{ limit },
     products
   })
 }
