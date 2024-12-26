@@ -41,11 +41,11 @@ const getAllProducts = async (req, res) => {
   }
 
   // Limit
-  limit = Math.abs( parseInt(limit) ) || DEFAULT_LIMIT
+  limit = Math.abs( Number(limit) ) || DEFAULT_LIMIT
   result.limit( limit )
 
   // Pagination
-  page = Math.abs( parseInt(page) ) || 1
+  page = Math.abs( Number(page) ) || 1
   result.skip( (page - 1) * limit )
   
   // Run created query
