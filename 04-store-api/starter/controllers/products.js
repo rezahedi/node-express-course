@@ -9,9 +9,43 @@ const getAllProductsStatic = async (req, res) => {
   })
 }
 const getAllProducts = async (req, res) => {
-  const products = await Product.find()
+  const { name, featured, company, sort, fields } = req.query
+  const queryObject = {}
+
+  if (name) {
+    queryObject.name = { $regex: name, $options: 'i' }
+  }
+  if (featured) {
+    queryObject.featured = (featured === 'true' ? true : false)
+  }
+  if (company) {
+    queryObject.company = company
+  }
+
+  // Create base query
+  const result = Product.find( queryObject )
+  
+  // Sort
+  if (sort) {
+    result.sort( sort.replace(',', ' ') )
+  } else {
+    // Set default sort by createdAt
+    result.sort('createdAt')
+  }
+
+  // Select fields
+  if (fields) {
+    result.select( fields.replace(',', ' ') )
+  }
+  
+  // Run created query
+  const products = await result
+
   res.status(200).json({
     length: products.length,
+    ...queryObject,
+    ...{ sort },
+    ...{ fields },
     products
   })
 }
