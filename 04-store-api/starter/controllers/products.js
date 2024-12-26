@@ -11,7 +11,7 @@ const getAllProductsStatic = async (req, res) => {
 }
 const getAllProducts = async (req, res) => {
   const { name, featured, company, sort, fields } = req.query
-  let { limit = DEFAULT_LIMIT } = req.query
+  let { limit = DEFAULT_LIMIT, page = 1 } = req.query
   const queryObject = {}
 
   if (name) {
@@ -43,6 +43,10 @@ const getAllProducts = async (req, res) => {
   // Limit
   limit = Math.abs( parseInt(limit) ) || DEFAULT_LIMIT
   result.limit( limit )
+
+  // Pagination
+  page = Math.abs( parseInt(page) ) || 1
+  result.skip( (page - 1) * limit )
   
   // Run created query
   const products = await result
@@ -53,6 +57,7 @@ const getAllProducts = async (req, res) => {
     ...{ sort },
     ...{ fields },
     ...{ limit },
+    ...{ page },
     products
   })
 }
