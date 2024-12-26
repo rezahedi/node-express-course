@@ -1,5 +1,8 @@
 const Product = require('../models/product')
+const queryValidator = require('../utils/queryValidator')
+
 const DEFAULT_LIMIT = 10;
+const START_PAGE = 1;
 
 const getAllProductsStatic = async (req, res) => {
   const products = await Product.find(req.query)
@@ -10,8 +13,17 @@ const getAllProductsStatic = async (req, res) => {
   })
 }
 const getAllProducts = async (req, res) => {
-  const { name, featured, company, sort, fields } = req.query
-  let { limit = DEFAULT_LIMIT, page = 1 } = req.query
+  const {
+    name,
+    featured,
+    company,
+    sort,
+    fields
+  } = req.query
+  let {
+    limit = DEFAULT_LIMIT,
+    page  = START_PAGE
+  } = req.query
   const queryObject = {}
 
   if (name) {
@@ -40,13 +52,10 @@ const getAllProducts = async (req, res) => {
     result.select( fields.replace(',', ' ') )
   }
 
-  // Limit
-  limit = Math.abs( Number(limit) ) || DEFAULT_LIMIT
-  result.limit( limit )
-
   // Pagination
-  page = Math.abs( Number(page) ) || 1
-  result.skip( (page - 1) * limit )
+  limit = queryValidator.toNumber(limit, DEFAULT_LIMIT)
+  page = queryValidator.toNumber(page, START_PAGE)
+  result.limit( limit ).skip( (page - 1) * limit )
   
   // Run created query
   const products = await result
@@ -54,10 +63,7 @@ const getAllProducts = async (req, res) => {
   res.status(200).json({
     length: products.length,
     ...queryObject,
-    ...{ sort },
-    ...{ fields },
-    ...{ limit },
-    ...{ page },
+    ...{ sort, fields, limit, page },
     products
   })
 }
