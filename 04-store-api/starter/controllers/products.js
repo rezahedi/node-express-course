@@ -31,7 +31,8 @@ const getAllProducts = async (req, res) => {
     queryObject.name = { $regex: name, $options: 'i' }
   }
   if (featured) {
-    queryObject.featured = (featured === 'true' ? true : false)
+    const isFeatured = featured.toLowerCase()
+    queryObject.featured = (isFeatured === 'true')
   }
   if (company) {
     queryObject.company = company
@@ -64,7 +65,8 @@ const getAllProducts = async (req, res) => {
   
   // Sort
   if (sort) {
-    result.sort( sort.replace(',', ' ') )
+    const formattedSort = sort.replace(',', ' ')
+    result.sort( formattedSort )
   } else {
     // Set default sort by createdAt
     result.sort('createdAt')
@@ -72,7 +74,8 @@ const getAllProducts = async (req, res) => {
 
   // Select fields
   if (fields) {
-    result.select( fields.replace(',', ' ') )
+    const formattedFields = fields.replace(',', ' ')
+    result.select( formattedFields )
   }
 
   // Pagination
