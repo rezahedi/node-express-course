@@ -1,3 +1,4 @@
+require('dotenv').config();
 const CustomAPIError = require('../errors/custom-error')
 const jwt = require('jsonwebtoken')
 
@@ -23,11 +24,27 @@ const login = async (req, res) => {
 }
 
 const dashboard = async (req, res) => {
-  const luckyNumber = Math.floor( Math.random() * 100 )
-  res.status(200).json({
-    message: 'Hello Reza!',
-    secret: `Here is your lucky number: ${luckyNumber}`,
-  })
+  const authorizationHeader = req.headers.authorization
+
+  if ( !authorizationHeader || !authorizationHeader.startsWith('Bearer ') ) {
+    throw new CustomAPIError('Authorization token not provided!', 401)
+  }
+
+  const token = authorizationHeader.split(' ')[1]
+  
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET)
+
+    const luckyNumber = Math.floor( Math.random() * 100 )
+    res.status(200).json({
+      msg: `Hello ${decoded.username}!`,
+      secret: `Here is your lucky number: ${luckyNumber}`,
+    })
+
+  } catch (error) {
+    throw new CustomAPIError('Not authorized to access this route!', 401)
+  }
+  
 }
 
 module.exports = {
