@@ -1,6 +1,7 @@
 const { AuthenticationError, BadRequestError } = require('../errors')
 
 const login = async (req, res) => {
+  // TODO: Sign a JWT token to the user and send it back to the client for authentication purposes
   // To test the error handler
   throw new AuthenticationError('Test - AuthenticationError')
   res.send('login')
