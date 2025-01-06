@@ -1,17 +1,34 @@
 const { AuthenticationError, BadRequestError } = require('../errors')
+const jwt = require('jsonwebtoken')
+require('dotenv').config()
+const { StatusCodes } = require('http-status-codes')
 
 const login = async (req, res) => {
-  // TODO: Sign a JWT token to the user and send it back to the client for authentication purposes
-  // To test the error handler
-  throw new AuthenticationError('Test - AuthenticationError')
-  res.send('login')
+  const { username, password } = req.body
+
+  if (!username || !password) {
+    throw new BadRequestError('Username or password not provided!')
+  }
+
+  // TODO: Check user/pass with the database
+  const userDetails = { username }
+  // TODO: If user not found in db, throw authentication error
+  if(!userDetails) {
+    throw new AuthenticationError('User not found!')
+  }
+
+  const token = jwt.sign(userDetails, process.env.JWT_SECRET, { expiresIn: '30d' })
+
+  res.status( StatusCodes.OK ).json({ message: 'User accessed', token })
 }
 
 const dashboard = async (req, res) => {
-  // To test the error handler
-  throw new BadRequestError('Test - BadRequestError')
-  res.send('dashboard')
+  const user = req.user
+  // TODO: Get the data from the database and send back to the client
+  res.send(`dashboard accessed by ${user.username}`)
 }
+
+// TODO: Create a post message route
 
 module.exports = {
   login,
