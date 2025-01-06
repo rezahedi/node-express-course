@@ -1,11 +1,11 @@
 require('dotenv').config();
-const CustomAPIError = require('../errors/custom-error')
+const CustomError = require('../errors/CustomError')
 const jwt = require('jsonwebtoken')
 
 const login = async (req, res) => {
   const { username, password } = req.body
   if (!username || !password) {
-    throw new CustomAPIError('Username or password is missing!', 400)
+    throw new CustomError('Username or password is missing!', 400)
   }
 
   // Create a fake login
