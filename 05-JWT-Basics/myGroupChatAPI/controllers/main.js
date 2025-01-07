@@ -2,6 +2,7 @@ const { AuthenticationError, BadRequestError } = require('../errors')
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
 const { StatusCodes } = require('http-status-codes')
+const messages = require('../models/messages')
 
 const login = async (req, res) => {
   const { username, password } = req.body
@@ -29,8 +30,23 @@ const dashboard = async (req, res) => {
 }
 
 // TODO: Create a post message route
+const postMessage = async (req, res) => {
+  const { username, message } = req.body
+
+  if (!username || !message) {
+    throw new BadRequestError('Username or message not provided!')
+  }
+
+  const result = await messages.create({
+    username,
+    message,
+  })
+
+  res.status( StatusCodes.OK ).json(result)
+}
 
 module.exports = {
   login,
   dashboard,
+  postMessage,
 }
