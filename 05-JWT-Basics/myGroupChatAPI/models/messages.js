@@ -4,10 +4,6 @@ const messageSchema = new mongoose.Schema({
   username: {
     type: String,
     required: [ true, 'Username must be provided' ],
-    enum: {
-      values: [ 'Anna', 'Reza', 'John', 'Sarah' ],
-      message: '\'{VALUE}\' is not supported'
-    },
   },
   message: {
     type: String,
