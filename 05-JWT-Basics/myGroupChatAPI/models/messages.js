@@ -7,7 +7,7 @@ const messageSchema = new mongoose.Schema({
   },
   message: {
     type: String,
-    required: [ true, 'Product\'s price must be provided' ]
+    required: [ true, 'Message must be provided' ]
   },
   createdAt: {
     type: Date,
