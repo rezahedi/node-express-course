@@ -22,7 +22,7 @@ const login = async (req, res) => {
     username: userDetails.username,
     id: userDetails._id
   }
-  const token = jwt.sign(payloadObject, process.env.JWT_SECRET, { expiresIn: '30d' })
+  const token = jwt.sign(payloadObject, process.env.JWT_SECRET, { expiresIn: '30s' })
 
   res.status( StatusCodes.OK ).json({ message: 'User accessed', token })
 }
