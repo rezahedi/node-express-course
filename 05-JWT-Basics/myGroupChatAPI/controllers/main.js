@@ -3,42 +3,46 @@ const jwt = require('jsonwebtoken')
 require('dotenv').config()
 const { StatusCodes } = require('http-status-codes')
 const messages = require('../models/messages')
+const users = require('../models/users')
 
 const login = async (req, res) => {
-  const { username, password } = req.body
+  const { username } = req.body
 
-  if (!username || !password) {
-    throw new BadRequestError('Username or password not provided!')
+  if (!username) {
+    throw new BadRequestError('Username not provided!')
   }
 
-  // TODO: Check user/pass with the database
-  const userDetails = { username }
-  // TODO: If user not found in db, throw authentication error
-  if(!userDetails) {
-    throw new AuthenticationError('User not found!')
+  let userDetails = await users.findOne({ username }).select('id username')
+  // If user does not exists, create it!
+  if (!userDetails) {
+    userDetails = await users.create({ username })
   }
-
-  const token = jwt.sign(userDetails, process.env.JWT_SECRET, { expiresIn: '30d' })
+  
+  const payloadObject = {
+    username: userDetails.username,
+    id: userDetails._id
+  }
+  const token = jwt.sign(payloadObject, process.env.JWT_SECRET, { expiresIn: '30d' })
 
   res.status( StatusCodes.OK ).json({ message: 'User accessed', token })
 }
 
 const dashboard = async (req, res) => {
   const user = req.user
-  // TODO: Get the data from the database and send back to the client
-  res.send(`dashboard accessed by ${user.username}`)
+  const data = await messages.find().select('username message createdAt').sort('createdAt')
+  res.status( StatusCodes.OK ).json({ user, messages: data })
 }
 
-// TODO: Create a post message route
 const postMessage = async (req, res) => {
+  const user = req.user
   const { username, message } = req.body
 
-  if (!username || !message) {
-    throw new BadRequestError('Username or message not provided!')
+  if ( !message ) {
+    throw new BadRequestError('Message not provided!')
   }
 
   const result = await messages.create({
-    username,
+    username: user.username,
     message,
   })
 
