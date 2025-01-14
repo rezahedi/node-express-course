@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Group Chat Application</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="header">
+    <p>Login with your preferred username to see messages and chat!</p>
+    <form id="loginForm">
+      <input type="text" placeholder="Choose your username..." />
+      <button type="submit">Login</button>
+      <p class="error"></p>
+    </form>
+    <button id="logout" class="hidden">Logout</button>
+  </div>
+
+  <div id="messages"></div>
+
+  <form id="messageForm" class="hidden">
+    <div id="username"></div>
+    <input type="text" id="message-input" placeholder="Type your message here..." />
+    <button type="submit">Send</button>
+    <p class="error"></p>
+  </form>
+
+  <script src="./scripts.js"></script>
+</body>
+</html>

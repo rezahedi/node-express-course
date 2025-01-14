@@ -1,0 +1,12 @@
+.hidden{
+  display: none;
+}
+.error{
+  color: red;
+  font-size: 1rem;
+}
+.header, #messages, #messageForm{
+  margin:1rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+}
